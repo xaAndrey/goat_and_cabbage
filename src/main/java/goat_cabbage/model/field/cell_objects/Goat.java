@@ -41,8 +41,9 @@ public class Goat extends MobileCellObject {
 
     /**
      * Конструктор.
+     *
      * @param numberMoves количество шагов козы.
-     * @param power сила козы.
+     * @param power       сила козы.
      */
     public Goat(@NotNull int numberMoves, @NotNull int power) {
         this.numberMoves = numberMoves;
@@ -51,6 +52,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Установить кол-во шагов козы.
+     *
      * @param numberMoves кол-во шагов козы.
      */
     public void setNumberMoves(int numberMoves) {
@@ -59,6 +61,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Получить кол-во шагов козы.
+     *
      * @return кол-во шагов козы.
      */
     public int getNumberMoves() {
@@ -67,6 +70,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Установить силу козы.
+     *
      * @param power сила козы.
      */
     public void setPower(int power) {
@@ -75,6 +79,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Получить силу козы.
+     *
      * @return сила козы.
      */
     public int getPower() {
@@ -88,14 +93,12 @@ public class Goat extends MobileCellObject {
 
     @Override
     public void move(@NotNull Direction direction) {
-        if (isActive) {
-            Cell oldPosition = position;
-            Cell newPosition = canMove(direction);
-            if (newPosition != null) {
-                fireGoatIsMoved(oldPosition, newPosition);
-                position.takeObject(position.getMobileCellObject());
-                newPosition.addObject(this);
-            }
+        Cell oldPosition = position;
+        Cell newPosition = canMove(direction);
+        if (newPosition != null) {
+            fireGoatIsMoved(oldPosition, newPosition);
+            position.takeObject(position.getMobileCellObject());
+            newPosition.addObject(this);
         }
     }
 
@@ -113,6 +116,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Сделать козу активной.
+     *
      * @param value состояние активности.
      */
     public void setActive(boolean value) {
@@ -124,6 +128,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Получить состояние активности козы.
+     *
      * @return состояние активности козы.
      */
     public boolean isActive() {
@@ -137,6 +142,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Добавить нового слушателя за событиями козы.
+     *
      * @param listener слушатель.
      */
     public void addGoatActionListener(GoatActionListener listener) {
@@ -145,6 +151,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Удалить слушателя за событиями козы.
+     *
      * @param listener слушатель.
      */
     public void removeGoatActionListener(GoatActionListener listener) {
@@ -153,6 +160,7 @@ public class Goat extends MobileCellObject {
 
     /**
      * Оповестить слушателей, что коза переместилась.
+     *
      * @param oldPosition ячейка откуда переместилась козы.
      * @param newPosition ячейка куда переместилась козы.
      */

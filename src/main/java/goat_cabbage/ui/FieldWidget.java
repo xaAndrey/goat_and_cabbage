@@ -1,12 +1,14 @@
 package goat_cabbage.ui;
 
 import goat_cabbage.model.Direction;
+import goat_cabbage.model.Orientation;
 import goat_cabbage.model.Point;
 import goat_cabbage.model.event.GoatActionEvent;
 import goat_cabbage.model.event.GoatActionListener;
 import goat_cabbage.model.field.Cell;
 import goat_cabbage.model.field.Field;
 import goat_cabbage.model.field.cell_objects.Goat;
+import goat_cabbage.ui.cell.BetweenCellsWidget;
 import goat_cabbage.ui.cell.CellItemWidget;
 import goat_cabbage.ui.cell.CellWidget;
 import goat_cabbage.ui.cell.GoatWidget;
@@ -27,9 +29,16 @@ public class FieldWidget extends JPanel {
     }
 
     private void fillField() {
+        if (field.getHeight() > 0) {
+            JPanel startRowWalls = createRowWalls(0, Direction.NORTH);
+            add(startRowWalls);
+        }
+
         for (int i = 0; i < field.getHeight(); ++i) {
             JPanel row = createRow(i);
             add(row);
+            JPanel rowWalls = createRowWalls(i, Direction.SOUTH);
+            add(rowWalls);
         }
     }
 
@@ -43,7 +52,32 @@ public class FieldWidget extends JPanel {
             Cell cell = field.getCell(point);
             CellWidget cellWidget = widgetFactory.create(cell);
 
+            if (i == 0) {
+                BetweenCellsWidget westCellWidget = new BetweenCellsWidget(Orientation.VERTICAL);
+                row.add(westCellWidget);
+            }
+
             row.add(cellWidget);
+
+            BetweenCellsWidget eastCellWidget = new BetweenCellsWidget(Orientation.VERTICAL);
+
+            row.add(eastCellWidget);
+        }
+        return row;
+    }
+
+    private JPanel createRowWalls(int rowIndex, Direction direction) {
+        if (direction == Direction.EAST || direction == Direction.WEST) throw new IllegalArgumentException();
+        JPanel row = new JPanel();
+        row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
+
+        for (int i = 0; i < field.getWidth(); ++i) {
+            Point point = new Point(i, rowIndex);
+            Cell cell = field.getCell(point);
+
+            BetweenCellsWidget southCellWidget = new BetweenCellsWidget(Orientation.HORIZONTAL);
+
+            row.add(southCellWidget);
         }
         return row;
     }

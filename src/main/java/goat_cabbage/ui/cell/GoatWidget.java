@@ -142,7 +142,7 @@ public class GoatWidget extends CellItemWidget {
 
         private void moveAction(int keyCode) {
             Direction direction = directionByKeyCode(keyCode);
-            System.out.println("keyCode = " + keyCode + ", goat.png go to " + direction);
+            System.out.println("keyCode = " + keyCode + ", goat go to " + direction);
             if (direction != null) {
                 goat.move(direction);
             }
