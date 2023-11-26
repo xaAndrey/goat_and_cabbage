@@ -16,6 +16,7 @@ public abstract class Labirint {
         Field field = new Field(fieldWidth(), fieldHeight(), new Point(3, 3));
 
         addGoat(field);
+        addWalls(field);
 
         return field;
     }
@@ -37,4 +38,6 @@ public abstract class Labirint {
      * @param field поле.
      */
     protected abstract void addGoat(@NotNull Field field);
+
+    protected abstract void addWalls(@NotNull Field field);
 }

@@ -47,6 +47,10 @@ public class Cell {
         return (MobileCellObject) objectList.stream().filter(i -> i instanceof MobileCellObject).findFirst().orElse(null);
     }
 
+    public CellObject getCellObject() {
+        return (CellObject) objectList.stream().filter(i -> i instanceof CellObject).findFirst().orElse(null);
+    }
+
     /**
      * Соседние ячейки.
      */

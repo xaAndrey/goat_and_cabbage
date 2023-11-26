@@ -5,6 +5,7 @@ import goat_cabbage.model.event.GoatActionEvent;
 import goat_cabbage.model.event.GoatActionListener;
 import goat_cabbage.model.field.Cell;
 import goat_cabbage.model.field.MobileCellObject;
+import goat_cabbage.ui.cell.CellWidget;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -107,7 +108,8 @@ public class Goat extends MobileCellObject {
         Cell result = null;
 
         Cell neighborCell = position.getNeighborCell(direction);
-        if (neighborCell != null && canLocaleAtPosition(neighborCell)) {
+        System.out.println((Wall) neighborCell.getCellObject());
+        if (neighborCell != null && canLocaleAtPosition(neighborCell) && ((Wall) neighborCell.getCellObject() == null)) {
             result = neighborCell;
         }
 

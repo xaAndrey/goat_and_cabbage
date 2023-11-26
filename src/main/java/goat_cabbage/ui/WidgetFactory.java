@@ -4,9 +4,11 @@ import goat_cabbage.model.field.Cell;
 import goat_cabbage.model.field.CellObject;
 import goat_cabbage.model.field.MobileCellObject;
 import goat_cabbage.model.field.cell_objects.Goat;
+import goat_cabbage.model.field.cell_objects.Wall;
 import goat_cabbage.ui.cell.CellItemWidget;
 import goat_cabbage.ui.cell.CellWidget;
 import goat_cabbage.ui.cell.GoatWidget;
+import goat_cabbage.ui.cell.WallWidget;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -30,6 +32,14 @@ public class WidgetFactory {
             item.addItem(goatWidget);
         }
 
+        if (cell instanceof Cell && mobileCellObject == null) {
+            Wall wall = (Wall) cell.getCellObject();
+            if (wall != null) {
+                CellItemWidget wallWidget = create(wall);
+                item.addItem(wallWidget);
+            }
+        }
+
         cells.put(cell, item);
         return item;
     }
@@ -50,6 +60,8 @@ public class WidgetFactory {
             Color color = Color.BLUE;
             usedColors.add(color);
             createdWidget = new GoatWidget((Goat) cellObject, color);
+        } else if (cellObject instanceof Wall) {
+            createdWidget = new WallWidget((Wall) cellObject);
         } else {
             throw new IllegalArgumentException();
         }
