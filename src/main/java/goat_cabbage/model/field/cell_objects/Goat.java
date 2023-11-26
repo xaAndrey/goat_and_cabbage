@@ -98,6 +98,7 @@ public class Goat extends MobileCellObject {
         Cell newPosition = canMove(direction);
         if (newPosition != null) {
             fireGoatIsMoved(oldPosition, newPosition);
+            setNumberMoves(getNumberMoves() - 1);
             position.takeObject(position.getMobileCellObject());
             newPosition.addObject(this);
         }

@@ -92,7 +92,7 @@ public class Main {
                             message= "Игра завершена досрочно";
                             break;
                         case GOAT_NOT_HAVE_MOVES:
-                            message = "Все роботы имеют нулевой заряд";
+                            message = "У козы закончились ходы";
                             break;
                     }
                     String[] options = {"ok"};

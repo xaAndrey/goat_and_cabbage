@@ -139,6 +139,7 @@ public class Game {
         @Override
         public void goatIsMoved(@NotNull GoatActionEvent event) {
             fireGoatIsMoved(event.getGoat());
+            updateGameStatus();
         }
 
         @Override
