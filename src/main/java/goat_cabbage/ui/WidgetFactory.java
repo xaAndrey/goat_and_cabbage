@@ -34,7 +34,7 @@ public class WidgetFactory {
         return item;
     }
 
-    public CellWidget cellWidget(@NotNull Cell cell) {
+    public CellWidget getWidget(@NotNull Cell cell) {
         return cells.get(cell);
     }
 
