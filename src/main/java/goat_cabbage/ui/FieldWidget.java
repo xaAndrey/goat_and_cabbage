@@ -24,7 +24,6 @@ public class FieldWidget extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         fillField();
         subscribeOnRobots();
-        field.addFieldActionListener(new FieldController());
     }
 
     private void fillField() {
