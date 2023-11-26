@@ -47,8 +47,11 @@ public class Game {
         setStatus(GameStatus.GAME_IS_ON);
 
         buildField(labirint);
+        setGoat(gameField.getGoatOnField());
 
         gameField.getGoatOnField().addGoatActionListener(new GoatObserver());
+
+
     }
 
     /**
@@ -83,6 +86,10 @@ public class Game {
      */
     public Goat getGoat() {
         return goat;
+    }
+
+    public void setGoat(Goat goat) {
+        this.goat = goat;
     }
 
     /**
