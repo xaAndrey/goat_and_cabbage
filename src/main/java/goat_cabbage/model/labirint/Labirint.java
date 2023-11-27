@@ -17,6 +17,8 @@ public abstract class Labirint {
 
         addGoat(field);
         addWalls(field);
+        addCabbage(field);
+        addBox(field);
 
         return field;
     }
@@ -40,4 +42,8 @@ public abstract class Labirint {
     protected abstract void addGoat(@NotNull Field field);
 
     protected abstract void addWalls(@NotNull Field field);
+
+    protected abstract void addCabbage(@NotNull Field field);
+
+    protected abstract void addBox(@NotNull Field field);
 }

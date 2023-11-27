@@ -5,7 +5,7 @@ import goat_cabbage.model.event.GameActionListener;
 import goat_cabbage.model.event.GoatActionEvent;
 import goat_cabbage.model.event.GoatActionListener;
 import goat_cabbage.model.field.Field;
-import goat_cabbage.model.field.cell_objects.Gabbage;
+import goat_cabbage.model.field.cell_objects.Cabbage;
 import goat_cabbage.model.field.cell_objects.Goat;
 import goat_cabbage.model.labirint.Labirint;
 import org.jetbrains.annotations.NotNull;
@@ -116,9 +116,12 @@ public class Game {
         GameStatus result = GameStatus.GAME_IS_ON;
 
         Goat goatOnField = gameField.getGoatOnField();
+        Cabbage cabbage = gameField.getCabbageOnField();
 
         if (goatOnField.getNumberMoves() <= 0) {
             result = GameStatus.GOAT_NOT_HAVE_MOVES;
+        } else if (cabbage.getPosition() == goatOnField.getPosition()) {
+            result = GameStatus.WIN;
         }
 
         return result;

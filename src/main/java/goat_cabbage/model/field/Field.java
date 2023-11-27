@@ -2,13 +2,12 @@ package goat_cabbage.model.field;
 
 import goat_cabbage.model.Direction;
 import goat_cabbage.model.Point;
-import goat_cabbage.model.field.cell_objects.Gabbage;
+import goat_cabbage.model.field.cell_objects.Box;
+import goat_cabbage.model.field.cell_objects.Cabbage;
 import goat_cabbage.model.field.cell_objects.Goat;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Поле.
@@ -33,8 +32,9 @@ public class Field {
 
     /**
      * Конструктор
-     * @param width ширина. Должна быть > 0.
-     * @param height высота. Должна быть > 0.
+     *
+     * @param width        ширина. Должна быть > 0.
+     * @param height       высота. Должна быть > 0.
      * @param pointGabbage координата ячейки с капустой.
      * @throws IllegalArgumentException если ширина, высота или координата ячейки переданы некорректные.
      */
@@ -71,6 +71,7 @@ public class Field {
 
     /**
      * Получить ширину поля.
+     *
      * @return ширина поля.
      */
     public int getWidth() {
@@ -79,6 +80,7 @@ public class Field {
 
     /**
      * Получить высоту поля.
+     *
      * @return высота поля.
      */
     public int getHeight() {
@@ -87,6 +89,7 @@ public class Field {
 
     /**
      * Получить ячейку по заданной координате.
+     *
      * @param point координата.
      * @return ячейка.
      */
@@ -96,12 +99,41 @@ public class Field {
 
     /**
      * Получить козу на поле.
+     *
      * @return коза на поле.
      */
     public Goat getGoatOnField() {
         for (var i : cells.entrySet()) {
-            Goat goat = (Goat) i.getValue().getMobileCellObject();
-            if (goat != null) return goat;
+            List<CellObject> objectList = i.getValue().objectList;
+            for (var j: objectList) {
+                if (j instanceof Goat) {
+                    Goat goat = (Goat) i.getValue().getMobileCellObject();
+                    if (goat != null) return goat;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Box> getBoxesOnFild() {
+        List<Box> result = new ArrayList<>();
+        for (var i : cells.entrySet()) {
+            List<CellObject> objectList = i.getValue().objectList;
+            for (var j : objectList) {
+                if (j instanceof Box) {
+                    result.add((Box) j);
+                }
+            }
+        }
+        return result;
+    }
+
+    public Cabbage getCabbageOnField() {
+        for (var i : cells.entrySet()) {
+            if (i.getValue().getCellObject() instanceof Cabbage) {
+                CellObject cellObject = i.getValue().getCellObject();
+                if (cellObject instanceof Cabbage) return (Cabbage) cellObject;
+            }
         }
         return null;
     }

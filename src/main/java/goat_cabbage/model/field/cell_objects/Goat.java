@@ -89,14 +89,18 @@ public class Goat extends MobileCellObject {
 
     @Override
     public boolean canLocaleAtPosition(@NotNull Cell newPosition) {
-        return newPosition.getMobileCellObject() == null;
+        return newPosition.getMobileCellObject() == null || newPosition.getMobileCellObject() instanceof Box;
     }
 
     @Override
     public void move(@NotNull Direction direction) {
         Cell oldPosition = position;
         Cell newPosition = canMove(direction);
+        Cell neighborCell = position.getNeighborCell(direction);
         if (newPosition != null) {
+            if (neighborCell.getCellObject() instanceof Box) {
+                ((Box) neighborCell.getCellObject()).move(direction);
+            }
             fireGoatIsMoved(oldPosition, newPosition);
             setNumberMoves(getNumberMoves() - 1);
             position.takeObject(position.getMobileCellObject());
@@ -109,9 +113,18 @@ public class Goat extends MobileCellObject {
         Cell result = null;
 
         Cell neighborCell = position.getNeighborCell(direction);
-        System.out.println((Wall) neighborCell.getCellObject());
-        if (neighborCell != null && canLocaleAtPosition(neighborCell) && ((Wall) neighborCell.getCellObject() == null)) {
-            result = neighborCell;
+        System.out.println(neighborCell.getCellObject());
+        if (neighborCell != null && canLocaleAtPosition(neighborCell) && !(neighborCell.getCellObject() instanceof Wall)) {
+            if (neighborCell.getCellObject() instanceof Box) {
+                Cell nextCell = ((Box) neighborCell.getCellObject()).canMove(direction, this.power);
+                if (nextCell == null) {
+                    return result;
+                } else {
+                    result = neighborCell;
+                }
+            } else {
+                result = neighborCell;
+            }
         }
 
         return result;

@@ -3,12 +3,11 @@ package goat_cabbage.ui;
 import goat_cabbage.model.field.Cell;
 import goat_cabbage.model.field.CellObject;
 import goat_cabbage.model.field.MobileCellObject;
+import goat_cabbage.model.field.cell_objects.Box;
+import goat_cabbage.model.field.cell_objects.Cabbage;
 import goat_cabbage.model.field.cell_objects.Goat;
 import goat_cabbage.model.field.cell_objects.Wall;
-import goat_cabbage.ui.cell.CellItemWidget;
-import goat_cabbage.ui.cell.CellWidget;
-import goat_cabbage.ui.cell.GoatWidget;
-import goat_cabbage.ui.cell.WallWidget;
+import goat_cabbage.ui.cell.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -33,10 +32,15 @@ public class WidgetFactory {
         }
 
         if (cell instanceof Cell && mobileCellObject == null) {
-            Wall wall = (Wall) cell.getCellObject();
-            if (wall != null) {
-                CellItemWidget wallWidget = create(wall);
+            if (cell.getCellObject() instanceof Wall) {
+                CellItemWidget wallWidget = create(cell.getCellObject());
                 item.addItem(wallWidget);
+            } else if (cell.getCellObject() instanceof Cabbage) {
+                CellItemWidget cabbageWidget = create(cell.getCellObject());
+                item.addItem(cabbageWidget);
+            } else if (cell.getCellObject() instanceof Box) {
+                CellItemWidget boxWidget = create(cell.getCellObject());
+                item.addItem(boxWidget);
             }
         }
 
@@ -62,6 +66,10 @@ public class WidgetFactory {
             createdWidget = new GoatWidget((Goat) cellObject, color);
         } else if (cellObject instanceof Wall) {
             createdWidget = new WallWidget((Wall) cellObject);
+        } else if (cellObject instanceof Cabbage) {
+            createdWidget = new CabbageWidget((Cabbage) cellObject);
+        } else if (cellObject instanceof Box) {
+          createdWidget = new BoxWidget((Box) cellObject);
         } else {
             throw new IllegalArgumentException();
         }
